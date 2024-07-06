@@ -1,0 +1,17 @@
+# Build artifacts
+build/
+*.o
+*.exe
+
+# VSCode settings (general)
+.vscode/*
+
+# VSCode C/C++ extension settings
+c_cpp_properties.json
+
+# Other VSCode files
+*.code-workspace
+
+# System files
+.DS_Store
+Thumbs.db
