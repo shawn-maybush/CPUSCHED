@@ -4,8 +4,8 @@ CFLAGS = -Wall -I. -MMD -MP  # Include current directory for headers, enable dep
 
 # Executable and source files
 TARGET = scheduler_simulator
-SOURCES = Simulator.cpp FIFO.cpp SJF.cpp Priority.cpp
-HEADERS = Process.h Scheduler.h FIFO.h SJF.h Priority.h
+SOURCES = FIFO.cpp SJF.cpp Priority.cpp Scheduler.cpp EventQueue.cpp CPU.cpp
+HEADERS = Process.h ReadyQueue.h FIFO.h SJF.h Priority.h Event.h EventQueue.h CPU.h Scheduler.h
 
 # Default target
 all: $(TARGET)

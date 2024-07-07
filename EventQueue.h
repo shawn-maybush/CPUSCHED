@@ -8,7 +8,7 @@
 #ifndef EVENTQUEUE_H
 #define EVENTQUEUE_H
 
-#include <set>
+#include <map>      
 #include <iostream>
 #include "Event.h"
 
@@ -16,28 +16,37 @@
  * @brief Class for managing events in a CPU scheduling simulation.
  *
  * This class provides a priority queue-like interface for scheduling and processing
- * events in a CPU scheduling simulation. It uses a `std::multiset` to store events
- * in sorted order by their timestamp.
+ * events in a CPU scheduling simulation. It uses a `std::multimap` to store events
+ * in sorted order by their timestamp (and process ID as a tiebreaker).
  */
-class EventQueue
-{
+class EventQueue {
 public:
+    /**
+     * @brief Type alias for the event key, a pair of (timestamp, process_id).
+     */
+    using EventKey = std::pair<int, int>;
+
     /**
      * @brief Adds an event to the queue.
      *
-     * @param event The event to add.
+     * @param event The event to add. The event's timestamp is used as the key in the multimap.
      */
-    void push(const Event &event);
+    void push(const Event& event);
 
     /**
      * @brief Returns a const reference to the earliest (top) event in the queue.
      *
+     * The earliest event is the one with the lowest timestamp (or lowest process ID in case of a tie).
+     *
      * @return The earliest event.
+     * @throws std::out_of_range if the queue is empty.
      */
-    const Event &top() const;
+    const Event& top() const;
 
     /**
      * @brief Removes the earliest (top) event from the queue.
+     *
+     * @throws std::out_of_range if the queue is empty.
      */
     void pop();
 
@@ -49,11 +58,11 @@ public:
     bool empty() const;
 
     /**
-     * @brief Removes a specific event from the queue.
+     * @brief Removes a specific event from the queue based on its key.
      *
-     * @param event The event to remove.
+     * @param key The EventKey representing the (timestamp, process_id) of the event to remove.
      */
-    void remove(const Event &event);
+    void remove(const EventKey& key);
 
     /**
      * @brief Prints the contents of the event queue to the console for debugging purposes.
@@ -62,9 +71,12 @@ public:
 
 private:
     /**
-     * @brief The underlying multiset used to store events in sorted order.
+     * @brief The underlying multimap used to store events.
+     *
+     * Events are stored in sorted order by their timestamp. If two events have the same timestamp,
+     * they are ordered by their process ID.
      */
-    std::multiset<Event> events;
+    std::multimap<EventKey, Event> events; 
 };
 
 #endif // EVENTQUEUE_H

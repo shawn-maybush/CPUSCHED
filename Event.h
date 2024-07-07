@@ -4,6 +4,8 @@
 #include "Process.h"
 #include <functional>
 
+using EventKey = std::pair<int, int>;
+
 /**
  * @brief Represents an event in the CPU scheduling simulation.
  */
@@ -51,25 +53,6 @@ struct Event
 
     Event() : type(EventType::ARRIVAL), timestamp(0), process(Process()) {}
 
-    /**
-     * @brief Overloads the less-than operator to compare events by timestamp.
-     *
-     * This is used for ordering events in a priority queue (smallest timestamp first).
-     * If timestamps are equal, ARRIVAL events are prioritized over COMPLETION events,
-     * and if both are the same, then arrival time is used as a tiebreaker.
-     *
-     * @param other The other Event object to compare to.
-     * @return True if this event has a lower timestamp or an equal timestamp but higher priority
-     *         (ARRIVAL before COMPLETION).
-     */
-    bool operator<(const Event &other) const
-    {
-        if (timestamp == other.timestamp)
-        {
-            return type == EventType::ARRIVAL;
-        }
-        return timestamp < other.timestamp;
-    }
 };
 
 #endif // EVENT_H
