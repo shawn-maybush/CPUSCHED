@@ -2,11 +2,12 @@
 #include <iostream>
 
 void EventQueue::push(const Event& event){
-    events.insert(event);
+    EventKey eventKey(event.timestamp, event.process.process_id);
+    events.insert({eventKey, event});
 }
 
 const Event& EventQueue::top() const {
-    return *events.begin();
+    return events.begin()->second;
 }
 
 void EventQueue::pop(){
@@ -17,17 +18,18 @@ bool EventQueue::empty() const {
     return events.empty();
 }
 
-void EventQueue::remove(const Event& eventToRemove) {
-    int elementsRemoved = events.erase(eventToRemove);
+void EventQueue::remove(const EventKey& key) {
+    int elementsRemoved = events.erase(key);
     if(elementsRemoved == 0){
         std::cout << "Event Not Found\n";
     }
 }
 
-void EventQueue::printQueue(){
-    for (auto it = events.begin(); it != events.end(); it++){
-        std::cout << "Time: " << it->timestamp << " ";
-        std::cout << "| Type: " << (it->type == Event::ARRIVAL ? "Arrival " : "Completion ");
-        std::cout << "| Process ID: " << it->process.process_id << std::endl;
+void EventQueue::printQueue() {
+    std::cout << "Event Queue:\n";
+    for (const auto& [key, event] : events) { 
+        std::cout << "Time: " << event.timestamp << " ";
+        std::cout << "| Type: " << (event.type == Event::ARRIVAL ? "Arrival " : "Completion ");
+        std::cout << "| Process ID: " << event.process.process_id << std::endl;
     }
 }
