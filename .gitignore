@@ -2,6 +2,10 @@
 build/
 *.o
 *.exe
+*.d
+
+# Executable files
+scheduler_simulator
 
 # VSCode settings (general)
 .vscode/*
