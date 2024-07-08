@@ -4,6 +4,15 @@
 
 CPU::CPU() : runningProcess(nullptr) {}
 
+CPU::~CPU()
+{
+    if (runningProcess != nullptr)
+    {
+
+        delete runningProcess;
+    }
+}
+
 const Process *CPU::getRunningProcess() const
 {
     if (runningProcess == nullptr)
@@ -22,7 +31,8 @@ int CPU::loadProcess(const Process &p, int currentTime)
 {
     runningProcess = new Process(p);
     runningProcess->start_time = currentTime;
-    if (!runningProcess->hasStarted) {
+    if (!runningProcess->hasStarted)
+    {
         runningProcess->hasStarted = true;
         runningProcess->response_time = currentTime - runningProcess->arrival_time;
     }
@@ -41,7 +51,6 @@ Process CPU::unloadProcess(int currentTime)
     {
         // Update completed_burst_time and wait_time (same as before)
         runningProcess->completed_burst_time += currentTime - runningProcess->start_time;
-        
 
         // copy running process into completedProcess to return it
         completedProcess = *runningProcess;

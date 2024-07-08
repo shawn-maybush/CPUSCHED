@@ -58,8 +58,9 @@ void Scheduler::loadProcessesFromFile(const std::string &fileName)
     int arrivalTime, burstTime, priority;
 
     std::string line;
+    int processCount = 0;
 
-    while (std::getline(inputFile, line))
+    while (std::getline(inputFile, line) && processCount < 500)
     {
         std::istringstream iss(line);
 
@@ -71,6 +72,9 @@ void Scheduler::loadProcessesFromFile(const std::string &fileName)
         Process p{arrivalTime, burstTime, priority};
 
         eventQueue.push(Event(Event::ARRIVAL, arrivalTime, p));
+
+        processCount++;
+
     }
 
     inputFile.close();
@@ -174,11 +178,11 @@ void Scheduler::printStatistics() const
 
     std::cout << "\n----------------- Statistics -----------------\n";
     std::cout << "Number of processes: " << numProcesses << std::endl;
-    std::cout << "Total elapsed time: " << totalElapsedTime << std::endl;
-    std::cout << "Throughput: " << throughput << std::endl;
+    std::cout << "Total elapsed time (CPU burst times): " << totalElapsedTime << std::endl;
+    std::cout << "Throughput: (Number of processes executed in one unit of CPU burst time) " << throughput << std::endl;
     std::cout << "CPU utilization: " << cpuUtilization << "%" << std::endl;
-    std::cout << "Average waiting time: " << avgWaitingTime << std::endl;
-    std::cout << "Average turnaround time: " << avgTurnaroundTime << std::endl;
-    std::cout << "Average response time: " << avgResponseTime << std::endl;
+    std::cout << "Average waiting time (CPU burst times): " << avgWaitingTime << std::endl;
+    std::cout << "Average turnaround time (CPU burst times): " << avgTurnaroundTime << std::endl;
+    std::cout << "AAverage response time (CPU burst times): " << avgResponseTime << std::endl;
     std::cout << "---------------------------------------------\n";
 }

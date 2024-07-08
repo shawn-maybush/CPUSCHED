@@ -8,7 +8,7 @@
 #ifndef CPU_H
 #define CPU_H
 
-#include "Process.h" // Include the Process class definition
+#include "Process.h" 
 
 /**
  * @class CPU
@@ -27,6 +27,13 @@ public:
      * @brief Constructs a new CPU object in an idle state (no running process).
      */
     CPU();
+
+    /**
+     * @brief Destructor for the CPU class.
+     *
+     * Deallocates the memory associated with the currently running process (if any).
+     */
+    ~CPU(); 
 
     /**
      * @brief Returns a pointer to the currently running `Process`, or `nullptr` if the CPU is idle.
