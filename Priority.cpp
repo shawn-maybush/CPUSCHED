@@ -3,7 +3,7 @@
 
 void Priority::addProcess(const Process &p)
 {
-    readyQueue.push(p); // Simply add the process to the queue
+    readyQueue.push(p); 
 }
 
 Process Priority::getNextProcess()
@@ -14,7 +14,7 @@ Process Priority::getNextProcess()
     }
 
     Process nextProcess = readyQueue.top();
-    readyQueue.pop(); // Remove the process from the front of the queue
+    readyQueue.pop(); 
     return nextProcess;
 }
 

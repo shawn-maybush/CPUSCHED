@@ -46,7 +46,6 @@ Arrival time	CPU Burst length	Priority
 4 6 3
 ... (more processes)
 ```
-- The first line is a header (optional) and can be commented out with `#`.
 - Each subsequent line represents a process, with space-separated values for:
     - Arrival Time (integer)
     - CPU Burst length (integer)

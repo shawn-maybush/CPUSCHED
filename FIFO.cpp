@@ -3,7 +3,7 @@
 #include "Event.h" 
 
 void FIFO::addProcess(const Process& p) {
-    readyQueue.push(p); // Simply add the process to the back of the queue
+    readyQueue.push(p); 
 }
 
 Process FIFO::getNextProcess() {
@@ -12,7 +12,7 @@ Process FIFO::getNextProcess() {
     }
 
     Process nextProcess = readyQueue.front(); 
-    readyQueue.pop(); // Remove the process from the front of the queue
+    readyQueue.pop(); 
     return nextProcess;
 }
 

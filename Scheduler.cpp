@@ -64,7 +64,6 @@ void Scheduler::loadProcessesFromFile(const std::string &fileName)
     {
         std::istringstream iss(line);
 
-        // Split the line by tabs and read the values
         if (!(iss >> arrivalTime >> burstTime >> priority))
         {
             throw std::runtime_error("Invalid line format in file: " + line);
