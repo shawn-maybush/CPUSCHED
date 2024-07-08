@@ -46,13 +46,12 @@ int CPU::loadProcess(const Process &p, int currentTime)
 
 Process CPU::unloadProcess(int currentTime)
 {
-    Process completedProcess; // Create a copy of the process to be returned
+    Process completedProcess; 
     if (runningProcess)
     {
-        // Update completed_burst_time and wait_time (same as before)
+        
         runningProcess->completed_burst_time += currentTime - runningProcess->start_time;
 
-        // copy running process into completedProcess to return it
         completedProcess = *runningProcess;
 
         delete runningProcess;
