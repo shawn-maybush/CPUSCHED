@@ -12,7 +12,7 @@
 #include <queue>
 
 /**
- * @brief FIFO (First-In, First-Out) scheduler class.
+ * @brief FIFO (First-In, First-Out) ready queue class.
  *
  * This class implements the FIFO CPU scheduling algorithm. Processes are
  * scheduled for execution in the order they arrive in the system.

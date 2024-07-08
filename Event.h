@@ -32,7 +32,7 @@ struct Event
 
     /**
      * @brief The process associated with the event.
-     *        This is only used for ARRIVAL events.
+     *       
      */
     Process process;
 
