@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <filesystem>
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
 
     Scheduler scheduler(fileName, algorithmType);
     scheduler.runSimulation();
+    scheduler.printStatistics(fileName);
 
     return 0;
 }
@@ -101,7 +103,7 @@ void Scheduler::runSimulation()
             break;
         }
     }
-    printStatistics();
+    
 }
 
 void Scheduler::handleArrivalEvent(const Event &arrivalEvent, const int &currentTime)
@@ -153,8 +155,17 @@ void Scheduler::handleCompletionEvent(const Event &completionEvent, const int &c
     }
 }
 
-void Scheduler::printStatistics() const
+void Scheduler::printStatistics(const std::string& input_filename) const
 {
+
+    std::string filename = std::filesystem::path(input_filename).stem().string();
+    std::string outputFileName = filename +"-"+ algorithmType + "-output.txt";
+    std::ofstream outputFile(outputFileName, std::ios::trunc);
+
+    if (!outputFile.is_open()) {
+        throw std::runtime_error("Error opening output file: " + outputFileName);
+    }
+
     int numProcesses = completedProcesses.size();
     int totalElapsedTime = completedProcesses.back().completion_time; // Assuming last process has the latest completion time
     double throughput = static_cast<double>(numProcesses) / totalElapsedTime;
@@ -175,13 +186,17 @@ void Scheduler::printStatistics() const
     double avgTurnaroundTime = static_cast<double>(totalTurnaroundTime) / numProcesses;
     double avgResponseTime = static_cast<double>(totalResponseTime) / numProcesses;
 
-    std::cout << "\n----------------- Statistics -----------------\n";
-    std::cout << "Number of processes: " << numProcesses << std::endl;
-    std::cout << "Total elapsed time (CPU burst times): " << totalElapsedTime << std::endl;
-    std::cout << "Throughput: (Number of processes executed in one unit of CPU burst time) " << throughput << std::endl;
-    std::cout << "CPU utilization: " << cpuUtilization << "%" << std::endl;
-    std::cout << "Average waiting time (CPU burst times): " << avgWaitingTime << std::endl;
-    std::cout << "Average turnaround time (CPU burst times): " << avgTurnaroundTime << std::endl;
-    std::cout << "AAverage response time (CPU burst times): " << avgResponseTime << std::endl;
-    std::cout << "---------------------------------------------\n";
+    outputFile << "\n----------------- Statistics -----------------\n";
+    outputFile << "Number of processes: " << numProcesses << std::endl;
+    outputFile << "Total elapsed time (CPU burst times): " << totalElapsedTime << std::endl;
+    outputFile << "Throughput: (Number of processes executed in one unit of CPU burst time) " << throughput << std::endl;
+    outputFile << "CPU utilization: " << cpuUtilization << "%" << std::endl;
+    outputFile << "Average waiting time (CPU burst times): " << avgWaitingTime << std::endl;
+    outputFile << "Average turnaround time (CPU burst times): " << avgTurnaroundTime << std::endl;
+    outputFile << "AAverage response time (CPU burst times): " << avgResponseTime << std::endl;
+    outputFile << "---------------------------------------------\n";
+
+    std::cout << "Statistics output to "<< outputFileName << std::endl;
+
+    outputFile.close();
 }

@@ -1,0 +1,10 @@
+
+----------------- Statistics -----------------
+Number of processes: 500
+Total elapsed time (CPU burst times): 14744
+Throughput: (Number of processes executed in one unit of CPU burst time) 0.0339121
+CPU utilization: 71.6088%
+Average waiting time (CPU burst times): 14.362
+Average turnaround time (CPU burst times): 35.478
+AAverage response time (CPU burst times): 14.362
+---------------------------------------------
