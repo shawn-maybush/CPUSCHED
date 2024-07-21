@@ -14,11 +14,11 @@ You can install and build the CPU Scheduler Simulator in two ways:
 #### From Source Code (using Git):
 1. Clone the Repository:
    ```
-   git clone <your-repository-url>
+   git clone https://github.com/shawn-maybush/CPUSCHED.git
    ```
 2. Navigate to the Project Directory:
    ```
-   cd <your-project-directory>
+   cd CPUSCHED
    ```
 
 #### Build
