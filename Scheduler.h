@@ -44,12 +44,24 @@ public:
     void runSimulation();
 
     /**
-     * @brief Prints statistics about the completed processes and CPU utilization.
+     * @brief Calculates and writes process scheduling statistics to an output file.
      *
-     * This method calculates and displays various statistics, including average waiting time,
-     * turnaround time, response time, throughput, and CPU utilization.
+     * This method calculates and outputs various statistics related to the completed processes and CPU utilization:
+     *   - Number of processes completed
+     *   - Total elapsed time (in CPU time units)
+     *   - Throughput (processes completed per CPU time unit)
+     *   - CPU utilization (%)
+     *   - Average waiting time (in CPU time units)
+     *   - Average turnaround time (in CPU time units)
+     *   - Average response time (in CPU time units)
+     *
+     * The statistics are written to a text file with the same name as the input file, 
+     * but with "-output.txt" appended to the filename.
+     *
+     * @param input_filename The name of the input file used for the simulation.
+     * @throws std::runtime_error if the output file cannot be opened.
      */
-    void printStatistics() const;
+    void printStatistics(const std::string& input_filename) const;
 private:
     /**
      * @brief Loads processes from the specified file into the event queue.

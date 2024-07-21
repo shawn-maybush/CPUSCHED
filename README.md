@@ -53,7 +53,7 @@ Arrival time	CPU Burst length	Priority
 
 ## Output
 
-The simulator will print the following statistics to the console:
+The simulator will print the following statistics to file `<data_file_stem>-<algorithm>-output.txt`:
 
 - Number of processes
 - Total elapsed time (in CPU time units)
